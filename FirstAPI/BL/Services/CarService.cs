@@ -9,7 +9,7 @@ public class CarService (ICarInterface carInterface)
 {
     private readonly ICarInterface _carInterface = carInterface;
 
-    public void Add(CarDto newCar)
+    public void Add(AddCarDto newCar)
     {
         Car car = new()
         {

@@ -6,7 +6,7 @@ public interface ICarService
 {
     List<CarDto> GetAll();
     CarDto GetById(int id);
-    void Add(CarDto car);
+    void Add(AddCarDto car);
     void Update(CarDto car);
     void Delete(int id);
 }

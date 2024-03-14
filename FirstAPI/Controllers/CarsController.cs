@@ -26,7 +26,7 @@ public class CarsController(ICarService carService)
     }
 
     [HttpPost]
-    public IActionResult Post(CarDto dto)
+    public IActionResult Post(AddCarDto dto)
     {
         _carService.Add(dto);
         return Ok();
@@ -45,4 +45,5 @@ public class CarsController(ICarService carService)
         _carService.Delete(id);
         return Ok();
     }
+
 }
