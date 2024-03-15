@@ -1,16 +1,24 @@
-﻿using FirstAPI.BL.CarDTOs;
+﻿using FirstAPI.BL.DTOs;
 using FirstAPI.Data.Entities;
 using FirstAPI.Data.Repositories;
 
 namespace FirstAPI.BL.Services;
 
-public class CarService (ICarInterface carInterface)
+public class CarService (ICarInterface carInterface,
+                         IBrandInterface brandInterface)
     : ICarService
 {
     private readonly ICarInterface _carInterface = carInterface;
+    private readonly IBrandInterface _brandInterface = brandInterface;
 
     public void Add(AddCarDto newCar)
     {
+        var brends = _brandInterface.GetById(newCar.BrandId);
+        if (brends == null)
+        {
+            return;
+        }
+
         Car car = new()
         {
             Name = newCar.Name,
@@ -18,7 +26,9 @@ public class CarService (ICarInterface carInterface)
             Year = newCar.Year,
             Price = newCar.Price,
             Color = newCar.Color,
-            Image = newCar.Image
+            Image = newCar.Image,
+            BrendId = newCar.BrandId,
+            Brends = brends
         };
 
         _carInterface.Add(car);
@@ -41,7 +51,8 @@ public class CarService (ICarInterface carInterface)
             Year = car.Year,
             Price = car.Price,
             Color = car.Color,
-            Image = car.Image
+            BrandId = car.BrendId
+
         }).ToList();
 
         return dtos;
@@ -58,7 +69,8 @@ public class CarService (ICarInterface carInterface)
             Year = car.Year,
             Price = car.Price,
             Color = car.Color,
-            Image = car.Image
+            Image = car.Image,
+            BrendId = car.BrendId
         };
 
         return dto;
@@ -73,6 +85,7 @@ public class CarService (ICarInterface carInterface)
         car.Price = dto.Price;
         car.Color = dto.Color;
         car.Image = dto.Image;
+        car.BrendId = dto.BrendId;
 
         _carInterface.Update(car);
     }

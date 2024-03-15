@@ -17,6 +17,9 @@ builder.Services.AddDbContext<CarsDbContext>(options
 
 builder.Services.AddTransient<ICarInterface, CarRepository>();
 builder.Services.AddTransient<ICarService, CarService>();
+builder.Services.AddTransient<IBrandInterface, BrandRepository>();
+builder.Services.AddTransient<IBrandService, BrandService>();
+
 
 var app = builder.Build();
 

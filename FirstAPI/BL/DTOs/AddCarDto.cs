@@ -1,4 +1,4 @@
-﻿namespace FirstAPI.BL.CarDTOs;
+﻿namespace FirstAPI.BL.DTOs;
 
 public class AddCarDto
 {
@@ -8,4 +8,5 @@ public class AddCarDto
     public string Color { get; set; } = string.Empty;
     public string Price { get; set; } = string.Empty;
     public string Image { get; set; } = string.Empty;
+    public int BrandId { get; set; }
 }

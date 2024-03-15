@@ -21,6 +21,23 @@ namespace FirstAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("FirstAPI.Data.Entities.Brand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brands");
+                });
+
             modelBuilder.Entity("FirstAPI.Data.Entities.Car", b =>
                 {
                     b.Property<int>("Id")
@@ -28,6 +45,12 @@ namespace FirstAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("BrendId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BrendsId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Color")
                         .IsRequired()
@@ -55,7 +78,25 @@ namespace FirstAPI.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BrendsId");
+
                     b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("FirstAPI.Data.Entities.Car", b =>
+                {
+                    b.HasOne("FirstAPI.Data.Entities.Brand", "Brends")
+                        .WithMany("Cars")
+                        .HasForeignKey("BrendsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Brends");
+                });
+
+            modelBuilder.Entity("FirstAPI.Data.Entities.Brand", b =>
+                {
+                    b.Navigation("Cars");
                 });
 #pragma warning restore 612, 618
         }
